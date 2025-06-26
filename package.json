@@ -10,9 +10,21 @@
     "test": "jest"
   },
   "dependencies": {
+    "@react-native/new-app-screen": "0.80.0",
+    "@react-navigation/native": "^7.1.14",
+    "@react-navigation/native-stack": "^7.3.21",
+    "@tamagui/config": "^1.129.3",
+    "@tamagui/core": "^1.129.3",
+    "@tamagui/font-inter": "^1.129.3",
+    "@tamagui/shorthands": "^1.129.3",
+    "@tamagui/themes": "^1.129.3",
     "react": "19.1.0",
     "react-native": "0.80.0",
-    "@react-native/new-app-screen": "0.80.0"
+    "react-native-gesture-handler": "^2.26.0",
+    "react-native-reanimated": "^3.18.0",
+    "react-native-safe-area-context": "^5.5.0",
+    "react-native-screens": "^4.11.1",
+    "tamagui": "^1.129.3"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
@@ -25,6 +37,7 @@
     "@react-native/eslint-config": "0.80.0",
     "@react-native/metro-config": "0.80.0",
     "@react-native/typescript-config": "0.80.0",
+    "@tamagui/babel-plugin": "^1.129.3",
     "@types/jest": "^29.5.13",
     "@types/react": "^19.1.0",
     "@types/react-test-renderer": "^19.1.0",
