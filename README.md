@@ -1,97 +1,82 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Wellness Assistant App
 
-# Getting Started
+A mobile application that helps users track their wellness through daily check-ins, providing personalized suggestions based on mood, sleep, and notes.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## Features
 
-## Step 1: Start Metro
+- Daily wellness check-ins with mood selection and sleep tracking
+- Personalized wellness suggestions based on user inputs
+- Beautiful animations and transitions between screens
+- Clean, modern UI with separate cards for suggestions and check-in summaries
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## Tech Stack
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+- **React Native** - Core framework for cross-platform mobile development
+- **TypeScript** - For type safety and better developer experience
+- **React Navigation** - For screen navigation and transitions
+- **Tamagui** - UI component library for consistent styling
+- **React Native Reanimated** - For smooth animations and transitions
+- **React Native Safe Area Context** - For proper handling of device safe areas
 
-```sh
-# Using npm
-npm start
+## Implementation Approach
 
-# OR using Yarn
-yarn start
-```
+- **Custom Hook Architecture**: Encapsulated wellness logic in a reusable `useWellness` hook, separating business logic from UI components
+- **Component-Based Design**: Created modular, reusable components like `MoodSelector`, `SleepHoursSelector`, and `SuggestionCard`
+- **Navigation-Based Flow**: Implemented React Navigation for better screen transitions and state management between form and success screens
 
-## Step 2: Build and run your app
+## Setup Instructions
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+1. Clone the repository
+2. Install dependencies:
+   ```sh
+   npm install
+   # or
+   yarn
+   ```
+3. Install iOS dependencies (for iOS development):
+   ```sh
+   cd ios && pod install && cd ..
+   ```
+4. Start the Metro bundler:
+   ```sh
+   npm start
+   # or
+   yarn start
+   ```
+5. Run the app on your preferred platform:
 
 ### Android
-
 ```sh
-# Using npm
 npm run android
-
-# OR using Yarn
+# or
 yarn android
 ```
 
 ### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
 ```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
 npm run ios
-
-# OR using Yarn
+# or
 yarn ios
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+## Design Decisions
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+### 1. Separation of UI Components
 
-## Step 3: Modify your app
+I decided to separate the wellness suggestion and check-in summary into two distinct cards in the `SuggestionCard` component. This design decision improves:
 
-Now that you have successfully run the app, let's make changes!
+- **Visual clarity**: Users can clearly distinguish between the app's suggestion and their own input data
+- **Information hierarchy**: The suggestion stands out with a different background color, emphasizing its importance
+- **Scalability**: Each card can be independently styled and expanded with additional features in the future
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+### 2. Custom Hook Architecture
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+I implemented a custom `useWellness` hook to encapsulate all wellness-related logic, which offers several benefits:
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+- **Reusability**: The same wellness logic can be used across different components
+- **Separation of concerns**: UI components focus on presentation while the hook handles business logic
+- **Testability**: The hook can be tested independently from the UI components
+- **Maintainability**: Changes to wellness logic can be made in one place without affecting UI components
 
-## Congratulations! :tada:
 
-You've successfully run and modified your React Native App. :partying_face:
 
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
