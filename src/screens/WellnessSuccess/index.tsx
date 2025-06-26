@@ -25,7 +25,7 @@ const WellnessSuccess: React.FC<Props> = ({ route, navigation }) => {
   } = useSuccessAnimation();
 
   return (
-    <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
+    <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <YStack gap="$4" padding="$4">
           <Text fontSize={28} fontWeight="bold" textAlign="center">

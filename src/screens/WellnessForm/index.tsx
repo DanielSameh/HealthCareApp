@@ -6,6 +6,7 @@ import { RootStackParamList } from '../../../App';
 import MoodSelector from '../../components/MoodSelector';
 import SleepHoursSelector from '../../components/SleepHoursSelector';
 import useWellness from '../../hooks/useWellness';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'WellnessForm'>;
 
@@ -39,6 +40,7 @@ const WellnessForm: React.FC<Props> = ({ navigation }) => {
   };
 
   return (
+    <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <YStack gap="$4" padding="$4">
           <Text fontSize={28} fontWeight="bold" textAlign="center">
@@ -97,6 +99,7 @@ const WellnessForm: React.FC<Props> = ({ navigation }) => {
           </YStack>
         </YStack>
       </ScrollView>
+    </SafeAreaView>
   );
 };
 
