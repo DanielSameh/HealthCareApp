@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { StyleSheet, ScrollView } from 'react-native';
-import { YStack, Text, Button, TextArea } from 'tamagui';
+import { StyleSheet, ScrollView, ActivityIndicator } from 'react-native';
+import { YStack, Text, Button, TextArea, XStack } from 'tamagui';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../../App';
 import MoodSelector from '../../components/MoodSelector';
@@ -12,31 +12,31 @@ type Props = NativeStackScreenProps<RootStackParamList, 'WellnessForm'>;
 
 const WellnessForm: React.FC<Props> = ({ navigation }) => {
 
-  const { handleSubmit } = useWellness();
+  const { handleSubmit, isLoading, error } = useWellness();
 
   const [selectedMood, setSelectedMood] = useState<number>(2);
   const [sleepHours, setSleepHours] = useState<number>(7);
   const [sleepHoursDisplay, setSleepHoursDisplay] = useState<string>('7');
   const [notes, setNotes] = useState<string>('');
 
-  const onSubmit = () => {
-
+  const onSubmit = async () => {
     const formData = {
       mood: selectedMood,
       sleepHours,
       notes,
     };
     
-
-    const { suggestion } = handleSubmit(formData);
-    
-
-    navigation.navigate('WellnessSuccess', {
-      suggestion,
-      selectedMood,
-      sleepHours,
-      notes
-    });
+    try {
+      const result = await handleSubmit(formData);
+      navigation.navigate('WellnessSuccess', {
+        suggestion: result.suggestion,
+        selectedMood,
+        sleepHours,
+        notes
+      });
+    } catch (err) {
+      console.error('Error submitting wellness form:', err);
+    }
   };
 
   return (
@@ -46,9 +46,7 @@ const WellnessForm: React.FC<Props> = ({ navigation }) => {
           <Text fontSize={28} fontWeight="bold" textAlign="center">
             Daily Wellness Check
           </Text>
-          
-          <YStack gap="$6" paddingTop="$4">
-
+          <YStack gap="$10" paddingTop="$4">
             <YStack gap="$2">
               <Text fontSize={18} fontWeight="600">
                 How are you feeling today?
@@ -85,17 +83,30 @@ const WellnessForm: React.FC<Props> = ({ navigation }) => {
                 autoCapitalize="sentences"
               />
             </YStack>
-
-
+            <YStack gap="$2">
             <Button
               backgroundColor="$blue8"
               color="white"
               size="$4"
               fontWeight="bold"
               onPress={onSubmit}
+              disabled={isLoading}
             >
-              Submit Check-in
+              {isLoading ? (
+                <XStack gap="$2" alignItems="center">
+                  <ActivityIndicator color="white" size="small" />
+                  <Text color="white">Loading...</Text>
+                </XStack>
+              ) : (
+                'Submit Check-in'
+              )}
             </Button>
+            {error && (
+              <Text color="$red10" textAlign="center">
+                {error}
+              </Text>
+            )}
+            </YStack>
           </YStack>
         </YStack>
       </ScrollView>

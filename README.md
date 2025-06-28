@@ -1,6 +1,6 @@
 # Wellness Assistant App
 
-A mobile application that helps users track their wellness through daily check-ins, providing personalized suggestions based on mood, sleep, and notes.
+A mobile application that helps users track their wellness through daily check-ins, providing personalized suggestions based on mood, sleep, and notes. Includes a lightweight Express backend API for suggestion generation.
 
 ## Features
 
@@ -8,15 +8,22 @@ A mobile application that helps users track their wellness through daily check-i
 - Personalized wellness suggestions based on user inputs
 - Beautiful animations and transitions between screens
 - Clean, modern UI with separate cards for suggestions and check-in summaries
+- Express backend API for suggestion generation with local fallback
 
 ## Tech Stack
 
+### Frontend
 - **React Native** - Core framework for cross-platform mobile development
 - **TypeScript** - For type safety and better developer experience
 - **React Navigation** - For screen navigation and transitions
 - **Tamagui** - UI component library for consistent styling
 - **React Native Reanimated** - For smooth animations and transitions
 - **React Native Safe Area Context** - For proper handling of device safe areas
+
+### Backend
+- **Express** - Lightweight Node.js web framework for the API
+- **CORS** - Cross-Origin Resource Sharing middleware
+- **Morgan** - HTTP request logger middleware
 
 ## Implementation Approach
 
@@ -26,6 +33,7 @@ A mobile application that helps users track their wellness through daily check-i
 
 ## Setup Instructions
 
+### Mobile App
 1. Clone the repository
 2. Install dependencies:
    ```sh
@@ -44,6 +52,18 @@ A mobile application that helps users track their wellness through daily check-i
    yarn start
    ```
 5. Run the app on your preferred platform:
+
+### Backend API
+1. Install server dependencies:
+   ```sh
+   cd server
+   npm install
+   ```
+2. Start the Express server:
+   ```sh
+   npm run dev
+   ```
+   The server will run on http://localhost:3000
 
 ### Android
 ```sh

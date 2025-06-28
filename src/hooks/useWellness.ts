@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { SUGGESTIONS_BY_SCORE, SuggestionCategory } from '../constants';
+import { getSuggestion as fetchSuggestion } from '../services/api';
 
 interface WellnessFormData {
   mood: number;
@@ -11,8 +11,10 @@ export interface UseWellnessReturn {
   submitted: boolean;
   formData: WellnessFormData;
   suggestion: string;
-  handleSubmit: (data: WellnessFormData) => { suggestion: string };
+  handleSubmit: (data: WellnessFormData) => Promise<{ suggestion: string }>;
   handleReset: () => void;
+  isLoading: boolean;
+  error: string | null;
 }
 
 export const useWellness = (): UseWellnessReturn => {
@@ -24,64 +26,29 @@ export const useWellness = (): UseWellnessReturn => {
     notes: ''
   });
   const [suggestion, setSuggestion] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
-
-  const calculateWellnessScore = (data: WellnessFormData): number => {
-
-    const moodScore = data.mood;
+  const handleSubmit = async (data: WellnessFormData) => {
+    setIsLoading(true);
+    setError(null);
     
-
-    let sleepScore = 0;
-    if (data.sleepHours >= 7 && data.sleepHours <= 8) {
-      sleepScore = 8;
-    } else if (data.sleepHours >= 6 && data.sleepHours <= 9) {
-      sleepScore = 6;
-    } else if (data.sleepHours >= 5 && data.sleepHours <= 10) {
-      sleepScore = 4;
-    } else {
-      sleepScore = 2;
+    try {
+      const response = await fetchSuggestion(data);
+      
+      const newSuggestion = response.suggestion;
+      setSuggestion(newSuggestion);
+      setFormData(data);
+      setSubmitted(true);
+      
+      return { suggestion: newSuggestion };
+    } catch (err) {
+      console.error('Failed to get suggestion from API', err);
+      setError('Could not connect to suggestion service. Please try again later.');
+      throw err;
+    } finally {
+      setIsLoading(false);
     }
-    
-
-    const notesScore = data.notes.length > 0 ? Math.min(Math.floor(data.notes.length / 20), 3) : 0;
-    
-
-    return moodScore + sleepScore + notesScore;
-  };
-
-  const getSuggestionCategory = (score: number): SuggestionCategory => {
-    if (score <= 5) {
-      return 'low';
-    } else if (score <= 10) {
-      return 'medium';
-    } else {
-      return 'high';
-    }
-  };
-
-  const getRandomSuggestion = (category: SuggestionCategory): string => {
-    const suggestions = SUGGESTIONS_BY_SCORE[category];
-    const randomIndex = Math.floor(Math.random() * suggestions.length);
-    return suggestions[randomIndex];
-  };
-
-
-  const handleSubmit = (data: WellnessFormData) => {
-
-    const wellnessScore = calculateWellnessScore(data);
-    
-
-    const suggestionCategory = getSuggestionCategory(wellnessScore);
-    
-
-    const newSuggestion = getRandomSuggestion(suggestionCategory);
-    
-    setSuggestion(newSuggestion);
-    setFormData(data);
-    setSubmitted(true);
-    
-
-    return { suggestion: newSuggestion };
   };
 
 
@@ -100,7 +67,9 @@ export const useWellness = (): UseWellnessReturn => {
     formData,
     suggestion,
     handleSubmit,
-    handleReset
+    handleReset,
+    isLoading,
+    error
   };
 };
 
