@@ -26,7 +26,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function App() {
   return (
-    <SafeAreaView style={styles.container} edges={['top', 'right', 'left', 'bottom']}>
+    <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#ffffff" />
       <TamaguiProvider config={config}>
           <NavigationContainer>
