@@ -17,6 +17,7 @@ interface WellnessFormData {
 
 interface SuggestionResponse {
   suggestion: string;
+  category: "low" | "medium" | "high";
 }
 
 export const getSuggestion = async (data: WellnessFormData): Promise<SuggestionResponse> => {

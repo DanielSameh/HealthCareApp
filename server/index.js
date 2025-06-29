@@ -23,6 +23,7 @@ app.post('/api/suggestions', (req, res) => {
     
     res.json({ 
       suggestion: suggestion.suggestion,
+      category: suggestion.category,
     });
   } catch (error) {
     console.error('Error processing suggestion request:', error);

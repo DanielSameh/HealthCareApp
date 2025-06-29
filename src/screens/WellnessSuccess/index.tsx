@@ -14,7 +14,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'WellnessSuccess'>;
 
 const WellnessSuccess: React.FC<Props> = ({ route, navigation }) => {
 
-  const { suggestion, selectedMood, sleepHours, notes } = route.params;
+  const { suggestion, selectedMood, sleepHours, notes, category } = route.params;
 
   const {
     circleScale,
@@ -22,7 +22,7 @@ const WellnessSuccess: React.FC<Props> = ({ route, navigation }) => {
     cardY,
     successBackgroundColor,
     backgroundScale
-  } = useSuccessAnimation();
+  } = useSuccessAnimation({ category });
 
   return (
     <SafeAreaView style={styles.container}>
@@ -39,6 +39,7 @@ const WellnessSuccess: React.FC<Props> = ({ route, navigation }) => {
                 textOpacity={textOpacity}
                 backgroundScale={backgroundScale}
                 successBackgroundColor={successBackgroundColor}
+                category={category}
               />
             </YStack>
             <Animated.View style={[styles.fullWidth, { transform: [{ translateY: cardY }] }]}>

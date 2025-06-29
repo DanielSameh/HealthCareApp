@@ -18,6 +18,7 @@ export type RootStackParamList = {
     selectedMood: number;
     sleepHours: number;
     notes: string;
+    category: 'low' | 'medium' | 'high';
   };
 };
 

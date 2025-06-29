@@ -6,6 +6,8 @@ export const styles = StyleSheet.create({
     height: 200,
     alignItems: 'center',
     justifyContent: 'center',
+    overflow: 'hidden',
+    position: 'relative',
   },
   animatedBackground: {
     width: 200,
@@ -25,9 +27,19 @@ export const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 4,
+    zIndex: 10,
   },
   checkmark: {
     fontSize: 36,
     color: '#4CAF50',
+  },
+  confettiPiece: {
+    position: 'absolute',
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    top: '50%',
+    left: '50%',
+    zIndex: 5,
   },
 });

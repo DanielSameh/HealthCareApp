@@ -11,7 +11,8 @@ export interface UseWellnessReturn {
   submitted: boolean;
   formData: WellnessFormData;
   suggestion: string;
-  handleSubmit: (data: WellnessFormData) => Promise<{ suggestion: string }>;
+  category: "low" | "medium" | "high";
+  handleSubmit: (data: WellnessFormData) => Promise<{ suggestion: string; category: 'low' | 'medium' | 'high' }>;
   handleReset: () => void;
   isLoading: boolean;
   error: string | null;
@@ -26,6 +27,7 @@ export const useWellness = (): UseWellnessReturn => {
     notes: ''
   });
   const [suggestion, setSuggestion] = useState<string>('');
+  const [category, setCategory] = useState<"low" | "medium" | "high">('low');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -35,13 +37,14 @@ export const useWellness = (): UseWellnessReturn => {
     
     try {
       const response = await fetchSuggestion(data);
-      
       const newSuggestion = response.suggestion;
+      const newCategory = response.category;
       setSuggestion(newSuggestion);
+      setCategory(newCategory);
       setFormData(data);
       setSubmitted(true);
       
-      return { suggestion: newSuggestion };
+      return { suggestion: newSuggestion, category: newCategory };
     } catch (err) {
       console.error('Failed to get suggestion from API', err);
       setError('Could not connect to suggestion service. Please try again later.');
@@ -55,6 +58,7 @@ export const useWellness = (): UseWellnessReturn => {
   const handleReset = () => {
     setSubmitted(false);
     setSuggestion('');
+    setCategory('low');
     setFormData({
       mood: 2,
       sleepHours: 7,
@@ -66,6 +70,7 @@ export const useWellness = (): UseWellnessReturn => {
     submitted,
     formData,
     suggestion,
+    category,
     handleSubmit,
     handleReset,
     isLoading,

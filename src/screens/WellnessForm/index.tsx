@@ -32,7 +32,8 @@ const WellnessForm: React.FC<Props> = ({ navigation }) => {
         suggestion: result.suggestion,
         selectedMood,
         sleepHours,
-        notes
+        notes,
+        category: result.category
       });
     } catch (err) {
       console.error('Error submitting wellness form:', err);

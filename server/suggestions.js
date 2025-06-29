@@ -65,7 +65,8 @@ const getSuggestion = (mood, sleepHours, notes = '') => {
   const suggestion = getRandomSuggestion(category);
   
   return {
-    suggestion
+    suggestion,
+    category,
   };
 };
 
