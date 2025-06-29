@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useEffect } from 'react';
 import { useSharedValue, withDelay, withTiming, withSequence, Easing, SharedValue } from 'react-native-reanimated';
 
 type WellnessCategory = 'low' | 'medium' | 'high';
@@ -56,39 +56,38 @@ export const useConfettiAnimation = ({ index, category }: ConfettiPieceConfig): 
   const randomDelay = Math.random() * 500;
 
 
-  scale.value = withDelay(
-    randomDelay,
-    withSequence(
-      withTiming(1, { duration: 200 }),
-      withTiming(0.8, { duration: animationDuration })
-    )
-  );
+  useEffect(() => {
+    scale.value = withDelay(
+      randomDelay,
+      withSequence(
+        withTiming(1, { duration: 200 }),
+        withTiming(0.8, { duration: animationDuration })
+      )
+    );
 
+    translateX.value = withDelay(
+      randomDelay,
+      withTiming(randomX, { duration: animationDuration, easing: Easing.out(Easing.quad) })
+    );
+    
+    translateY.value = withDelay(
+      randomDelay,
+      withTiming(randomY, { duration: animationDuration, easing: Easing.out(Easing.quad) })
+    );
 
-  translateX.value = withDelay(
-    randomDelay,
-    withTiming(randomX, { duration: animationDuration, easing: Easing.out(Easing.quad) })
-  );
-  
-  translateY.value = withDelay(
-    randomDelay,
-    withTiming(randomY, { duration: animationDuration, easing: Easing.out(Easing.quad) })
-  );
+    rotate.value = withDelay(
+      randomDelay,
+      withTiming(randomRotate, { duration: animationDuration })
+    );
 
-
-  rotate.value = withDelay(
-    randomDelay,
-    withTiming(randomRotate, { duration: animationDuration })
-  );
-
-
-  opacity.value = withDelay(
-    randomDelay,
-    withSequence(
-      withTiming(1, { duration: 200 }),
-      withTiming(0, { duration: animationDuration })
-    )
-  );
+    opacity.value = withDelay(
+      randomDelay,
+      withSequence(
+        withTiming(1, { duration: 200 }),
+        withTiming(0, { duration: animationDuration })
+      )
+    );
+  }, [scale, translateX, translateY, rotate, opacity, randomDelay, randomX, randomY, randomRotate, animationDuration]);
 
   return {
     scale,
