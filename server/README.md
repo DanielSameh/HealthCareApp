@@ -7,20 +7,6 @@ This is a lightweight Express API server that provides wellness suggestions base
 - RESTful API for wellness suggestions
 - Accepts user mood, sleep hours, and notes
 - Returns personalized wellness suggestions
-- Integrates with the React Native Wellness App
-
-## API Endpoints
-
-### GET /
-
-Health check endpoint to verify the server is running.
-
-**Response:**
-```json
-{
-  "message": "Welcome to the Wellness API"
-}
-```
 
 ### POST /api/suggestions
 
@@ -38,10 +24,8 @@ Get a wellness suggestion based on user inputs.
 **Response:**
 ```json
 {
-  "success": true,
   "suggestion": "Try something new that challenges you",
-  "category": "high",
-  "timestamp": "2025-06-28T09:30:00.000Z"
+  "category": "high"
 }
 ```
 

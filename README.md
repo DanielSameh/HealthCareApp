@@ -27,7 +27,10 @@ A mobile application that helps users track their wellness through daily check-i
 
 ## Implementation Approach
 
-- **Custom Hook Architecture**: Encapsulated wellness logic in a reusable `useWellness` hook, separating business logic from UI components
+- **Custom Hook Architecture**: Encapsulated wellness logic in a reusable `useWellness` hook, separating business logic from UI components and providing a consistent interface for the form and success screens
+- **useSuccessAnimation Hook**: Implemented a custom hook `useSuccessAnimation` to handle the animation logic for the success screen, including the animation sequence and state management
+- **useConfettiAnimation Hook**: Implemented a custom hook `useConfettiAnimation` to handle the confetti animation logic for the success screen, including the animation sequence and state management
+- **API Integration**: Implemented API integration using Axios to fetch wellness suggestions from the backend API
 - **Component-Based Design**: Created modular, reusable components like `MoodSelector`, `SleepHoursSelector`, and `SuggestionCard`
 - **Navigation-Based Flow**: Implemented React Navigation for better screen transitions and state management between form and success screens
 
@@ -91,7 +94,7 @@ I decided to separate the wellness suggestion and check-in summary into two dist
 
 ### 2. Custom Hook Architecture
 
-I implemented a custom `useWellness` hook to encapsulate all wellness-related logic, which offers several benefits:
+I implemented a custom hooks to encapsulate all wellness-related logic, which offers several benefits:
 
 - **Reusability**: The same wellness logic can be used across different components
 - **Separation of concerns**: UI components focus on presentation while the hook handles business logic
